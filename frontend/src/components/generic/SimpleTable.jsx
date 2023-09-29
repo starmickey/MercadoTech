@@ -4,7 +4,8 @@ import Table from 'react-bootstrap/Table';
 
 function SimpleTable(params) {
     const headers = params.headers;
-    const data = params.data;
+    const data = params.data.payments;
+
     return (
         <div>
             <Table hover>

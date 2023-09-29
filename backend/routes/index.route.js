@@ -1,10 +1,7 @@
 const express = require("express");
-const mockdata = require('../mockdata')
-
+const  { getPayments } = require('../controllers/getPayments.controller');
 const router = express.Router();
 
-router.get("/payments", async (req, res) => {
-    res.send(mockdata.payments)
-})
+router.get("/payments", getPayments)
 
 module.exports = router;

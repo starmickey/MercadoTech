@@ -4,9 +4,25 @@ import SimpleTable from "../generic/SimpleTable";
 import TopBar from "../generic/TopBar";
 import SideBar from "../generic/SideBar";
 
-import { headerItems, dataSample } from "../../mockdata";
 
 function HomePage() {
+    
+    const [payments, setPayments] = React.useState(null);
+
+    React.useEffect(() => {
+        fetch("/payments")
+            .then((res) => res.json())
+            .then((res) => setPayments(res.payments))
+    })
+
+    const headerItems = [
+        { id: 1, text: 'Num. de Tarjeta'},
+        { id: 2, text: 'Cliente'},
+        { id: 3, text: 'Monto'},
+        { id: 3, text: 'Estado'}
+    ];    
+
+
     return (
         <div className="App">
             <TopBar />
@@ -18,7 +34,10 @@ function HomePage() {
                 <Col>
                     <Container id="page-content-wrapper">
                         <h1>Lista de Pagos</h1>
-                        <SimpleTable headers={headerItems} data={dataSample} />
+                        {!payments ?
+                            <p>Loading...</p> :
+                            <SimpleTable headers={headerItems} data={payments} />         
+                        }
                         <Row>
                             <Col md={4}>
                                 <Button variant="light">Back</Button>
