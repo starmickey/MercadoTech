@@ -7,6 +7,7 @@ const getPayments = async (req, res) => {
     return res.status(200).send({
         status: 200,
         payments: mockdata.payments.slice(startItem,lastItem),
+        isFirstPage: req.query.page == 0,
         isLastPage: mockdata.payments.length <= lastItem
     });
 }

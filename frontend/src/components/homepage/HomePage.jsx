@@ -1,25 +1,30 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import SimpleTable from "../generic/SimpleTable";
 import TopBar from "../generic/TopBar";
 import SideBar from "../generic/SideBar";
 
-
 function HomePage() {
 
-    const [tablePage, setTablePage] = React.useState(0);
-    const [isLastPage, setIsLastPage] = React.useState(false)
+    const [payments, setPayments] = useState(null);
 
-    const [payments, setPayments] = React.useState(null);
+    const [tablePage, setTablePage] = useState(0);
+    const [isFirstPage, setIsFirstPage] = useState(true);
+    const [isLastPage, setIsLastPage] = useState(false);
 
-    React.useEffect(() => {
-        fetch(`/payments?page=${tablePage}`)
+    useEffect(() => {
+        try {
+            fetch(`/payments?page=${tablePage}`)
             .then((res) => res.json())
             .then((res) => {
-                setPayments(res.payments)
-                setIsLastPage(res.isLastPage)
+                setPayments(res.payments);
+                setIsFirstPage(res.isFirstPage);
+                setIsLastPage(res.isLastPage);
             })
-    })
+        } catch (error) {
+            console.log(error);
+        }
+    }, [tablePage]);
 
     const headers = [
         { id: 1, text: 'Num. de Tarjeta' },
@@ -27,7 +32,6 @@ function HomePage() {
         { id: 3, text: 'Monto' },
         { id: 3, text: 'Estado' }
     ];
-
 
 
     return (
@@ -49,7 +53,7 @@ function HomePage() {
                             <Col md={4}>
                                 <Button
                                     variant="light"
-                                    disabled={tablePage == 0}
+                                    disabled={isFirstPage}
                                     onClick={() => setTablePage(tablePage - 1)}>
                                     Back
                                 </Button>
