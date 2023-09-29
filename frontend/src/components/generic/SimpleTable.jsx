@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 function SimpleTable(params) {
     const headers = params.headers;
-    const data = params.data.payments;
+    const data = params.data;
 
     return (
         <div>

@@ -6,21 +6,28 @@ import SideBar from "../generic/SideBar";
 
 
 function HomePage() {
-    
+
+    const [tablePage, setTablePage] = React.useState(0);
+    const [isLastPage, setIsLastPage] = React.useState(false)
+
     const [payments, setPayments] = React.useState(null);
 
     React.useEffect(() => {
-        fetch("/payments")
+        fetch(`/payments?page=${tablePage}`)
             .then((res) => res.json())
-            .then((res) => setPayments(res.payments))
+            .then((res) => {
+                setPayments(res.payments)
+                setIsLastPage(res.isLastPage)
+            })
     })
 
-    const headerItems = [
-        { id: 1, text: 'Num. de Tarjeta'},
-        { id: 2, text: 'Cliente'},
-        { id: 3, text: 'Monto'},
-        { id: 3, text: 'Estado'}
-    ];    
+    const headers = [
+        { id: 1, text: 'Num. de Tarjeta' },
+        { id: 2, text: 'Cliente' },
+        { id: 3, text: 'Monto' },
+        { id: 3, text: 'Estado' }
+    ];
+
 
 
     return (
@@ -36,15 +43,25 @@ function HomePage() {
                         <h1>Lista de Pagos</h1>
                         {!payments ?
                             <p>Loading...</p> :
-                            <SimpleTable headers={headerItems} data={payments} />         
+                            <SimpleTable headers={headers} data={payments} />
                         }
                         <Row>
                             <Col md={4}>
-                                <Button variant="light">Back</Button>
-                                <Button variant="light" className="mx-2">Next</Button>
+                                <Button
+                                    variant="light"
+                                    disabled={tablePage == 0}
+                                    onClick={() => setTablePage(tablePage - 1)}>
+                                    Back
+                                </Button>
+                                <Button
+                                    variant="light" className="mx-2"
+                                    disabled={isLastPage}
+                                    onClick={() => setTablePage(tablePage + 1)}>
+                                    Next
+                                </Button>
                             </Col>
                             <Col className="d-flex justify-content-end">
-                                <Button variant="light">Salir</Button>
+                                <Button variant="light"> Salir</Button>
                             </Col>
                         </Row>
                     </Container>
