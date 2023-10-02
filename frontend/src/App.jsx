@@ -1,12 +1,6 @@
-import { createRoot } from 'react-dom/client';
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link
-} from "react-router-dom"
-import HomePage from './components/homepage/HomePage'
-import './styles/App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import HomePage from './components/homepage/HomePage';
+import './styles/style.scss'
 
 const router = createBrowserRouter([
     {
@@ -15,8 +9,10 @@ const router = createBrowserRouter([
     },
 ]);
 
-function App() {
-    return (<RouterProvider router={router} />)
+export default function App() {
+    return(
+        <div className='App'>
+            <RouterProvider router={router} />
+        </div>
+    )
 }
-
-export default App;

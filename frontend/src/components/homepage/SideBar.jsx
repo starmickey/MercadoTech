@@ -1,15 +1,15 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 
-function SideBar() {
+
+export default function SideBar() {
     return (
         <>
-
-            <Nav className="col-md-12 d-none d-md-block sidebar"
+            <Nav className="col-md-12 d-none d-md-block px-4"
                 activeKey="/home"
                 onSelect={selectedKey => alert(`selected ${selectedKey}`)}
             >
-                <div className="sidebar-sticky"></div>
+                <Nav.Item className="sidebar-brand"> MercadoTech </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="/home">Active</Nav.Link>
                 </Nav.Item>
@@ -29,5 +29,3 @@ function SideBar() {
         </>
     );
 }
-
-export default SideBar;

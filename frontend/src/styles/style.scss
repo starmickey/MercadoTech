@@ -1,0 +1,55 @@
+$timberwolf: #d6cbc3ff;
+$champagne-pink: #ebdfd7ff;
+$isabelline: #f2eae5ff;
+$isabelline-2: #f3ece7ff;
+$isabelline-3: #f4eee9ff;
+
+
+
+
+
+
+// Bootstrap variable overrides
+$body-bg: $champagne-pink;
+$border-color: $timberwolf;
+$table-bg: $isabelline;
+$table-border-color: $champagne-pink;
+
+// new concepts
+$component-color: $isabelline;
+
+
+
+.material-box {
+    z-index: 50;
+    padding: 0.5rem 0.5rem 0.25rem;
+    background-color: $component-color;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.material-box h1 {
+    font-size: 2rem;
+    padding: 0.5rem;
+}
+
+.sidebar-wrapper {
+    min-height: 100vh !important;
+    padding: 0.5rem;
+    box-shadow: #f2eae5cc 0.15rem 0rem;
+}
+
+.sidebar-brand {
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.topbar {
+    margin-bottom: 1rem;
+}
+
+@import "./node_modules/bootstrap/scss/bootstrap.scss";

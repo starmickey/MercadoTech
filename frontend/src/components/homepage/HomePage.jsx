@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { Col, Row, Container, Button } from "react-bootstrap";
-import SimpleTable from "../generic/SimpleTable";
-import TopBar from "../generic/TopBar";
-import SideBar from "../generic/SideBar";
+import PaymentsTable from "./PaymentsTable";
+import ContentHeader from "./ContentHeader";
+import SideBar from "./SideBar";
 
-function HomePage() {
-
+export default function HomePage() {
     const [payments, setPayments] = useState(null);
-
     const [tablePage, setTablePage] = useState(0);
     const [isFirstPage, setIsFirstPage] = useState(true);
     const [isLastPage, setIsLastPage] = useState(false);
@@ -15,40 +13,35 @@ function HomePage() {
     useEffect(() => {
         try {
             fetch(`/payments?page=${tablePage}`)
-            .then((res) => res.json())
-            .then((res) => {
-                setPayments(res.payments);
-                setIsFirstPage(res.isFirstPage);
-                setIsLastPage(res.isLastPage);
-            })
+                .then((res) => res.json())
+                .then((res) => {
+                    setPayments(res.payments);
+                    setIsFirstPage(res.isFirstPage);
+                    setIsLastPage(res.isLastPage);
+                })
         } catch (error) {
             console.log(error);
         }
     }, [tablePage]);
 
-    const headers = [
-        { id: 1, text: 'Num. de Tarjeta' },
-        { id: 2, text: 'Cliente' },
-        { id: 3, text: 'Monto' },
-        { id: 3, text: 'Estado' }
-    ];
-
-
     return (
-        <div className="App">
-            <TopBar />
-
-            <Row>
-                <Col xs={2} id="sidebar-wrapper">
+        <>
+            <Row className="p-0">
+                <Col xs={2} className="sidebar-wrapper">
                     <SideBar />
                 </Col>
-                <Col>
-                    <Container id="page-content-wrapper">
-                        <h1>Lista de Pagos</h1>
-                        {!payments ?
-                            <p>Loading...</p> :
-                            <SimpleTable headers={headers} data={payments} />
-                        }
+                <Col className="page-content-wrapper">
+                    <Container>
+                        <ContentHeader />
+                        <Container className="material-box">
+                            <h1>Lista de Pagos</h1>
+
+                            {!payments ?
+                                <p>Loading...</p> :
+                                <PaymentsTable data={payments} />
+                            }
+                        </Container>
+
                         <Row>
                             <Col md={4}>
                                 <Button
@@ -71,8 +64,6 @@ function HomePage() {
                     </Container>
                 </Col>
             </Row>
-        </div>
+        </>
     )
 }
-
-export default HomePage;
