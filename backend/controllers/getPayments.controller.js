@@ -1,15 +1,27 @@
-const mockdata = require('../mockdata');
+const { getPayments, getPaymentsCount } = require("../services/getPaymentsServices")
 
-const getPayments = async (req, res) => {
-    let startItem = req.query.page ? req.query.page * 10 : 0;
-    let lastItem = startItem + 10;
+const getPaymentsController = async (req, res) => {
+    // our pagination only shows 10 items per page
+    const countItems = 10;
+    const startItem = req.query.page ? req.query.page * countItems : 0;
 
-    return res.status(200).send({
-        status: 200,
-        payments: mockdata.payments.slice(startItem,lastItem),
-        isFirstPage: req.query.page == 0,
-        isLastPage: mockdata.payments.length <= lastItem
-    });
+    Promise.all([
+        getPayments(startItem, 10),
+        getPaymentsCount()
+    ])
+        .then((result) => {
+            const payments = result[0]
+            const paymentsCount = result[1]
+
+            return res.status(200).send({
+                status: 200,
+                payments: payments,
+                
+                // this enables the buttons "back" and "next"
+                isFirstPage: startItem === 0,
+                isLastPage: paymentsCount <= startItem + countItems
+            });
+        })
 }
 
-module.exports = { getPayments };
+module.exports = { getPaymentsController };

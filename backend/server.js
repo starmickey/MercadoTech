@@ -6,9 +6,8 @@ const routes = require("./routes/index.route.js")
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
-.connect(mongodbUrl)
-.catch((error) => console.log(error.reason));
-
+    .connect(mongodbUrl)
+    .catch((error) => console.log(error.reason));
 
 const app = express();
 
