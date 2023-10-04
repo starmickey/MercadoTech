@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
-const config = require('../config');
-const helper = require('../helpers/db');
+const config = require('../../config');
+const helper = require('../../helpers/db');
 
-const mongodbUrl = config.MONGODB_URL;
+// const mongodbUrl = config.MONGODB_URL;
+const mongodbUrl = 'mongodb://127.0.0.1:27017/mercadotech-tests';
+
 mongoose
     .connect(mongodbUrl)
     .catch((error) => console.log(error.reason));
@@ -23,9 +25,8 @@ async function createClients() {
     ];
 
     return new Promise((resolve, reject) => {
-        Promise.all(clients).then((clients) => {
-            resolve(clients);
-        });
+        Promise.all(clients)
+            .then((clients) => resolve(clients), (error) => reject(error));
     })
 }
 
@@ -45,9 +46,8 @@ async function createCards(clients) {
     ]
 
     return new Promise((resolve, reject) => {
-        Promise.all(cards).then((cards) => {
-            resolve(cards);
-        });
+        Promise.all(cards)
+            .then((cards) => resolve(cards), (error) => reject(error));
     })
 }
 
@@ -61,9 +61,9 @@ async function createPaymentStatuses() {
     ]
 
     return new Promise((resolve, reject) => {
-        Promise.all(paymentStatuses).then((paymentStatuses) => {
-            resolve(paymentStatuses);
-        });
+        Promise.all(paymentStatuses)
+            .then((paymentStatuses) => resolve(paymentStatuses),
+                (error) => reject(error));
     })
 }
 
@@ -92,9 +92,9 @@ async function createPayments(cards, paymentStatuses) {
     ]
 
     return new Promise((resolve, reject) => {
-        Promise.all(payments).then((payments) => {
-            resolve(payments);
-        });
+        Promise.all(payments)
+            .then((payments) => resolve(payments),
+                (error) => reject(error));
     })
 }
 
@@ -111,7 +111,9 @@ async function createMock() {
                         "created ", paymentStatuses.length, " payment statuses\n",
                         "created ", payments.length, " payments\n",
                     );
-                })
+                }),
+
+                (error) => console.log(error);
             })
         })
     })
