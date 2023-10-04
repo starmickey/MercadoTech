@@ -1,4 +1,3 @@
-// const createMock = require("./mocks/db-helper-mock");
 const helper = require("../../src/helpers/db");
 
 describe('find and populate tests', () => {
