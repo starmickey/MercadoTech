@@ -4,7 +4,7 @@
   "description": "Plan de desarrollo y mantenimiento de software",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon backend/server.js",
+    "start": "nodemon backend/src/server.js",
     "test": "jest"
   },
   "author": "starmickey",
