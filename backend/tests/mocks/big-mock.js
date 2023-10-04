@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const config = require('../../config');
-const helper = require('../../helpers/db');
+const config = require("../../src/config");
+const helper = require('../../src/helpers/db');
 
 // const mongodbUrl = config.MONGODB_URL;
 const mongodbUrl = 'mongodb://127.0.0.1:27017/mercadotech-tests';

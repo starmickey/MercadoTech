@@ -1,5 +1,5 @@
 // const createMock = require("./mocks/db-helper-mock");
-const helper = require("../../helpers/db");
+const helper = require("../../src/helpers/db");
 
 describe('find and populate tests', () => {
     it('finds documents', () => {
@@ -8,6 +8,7 @@ describe('find and populate tests', () => {
             
             .then((payments) => {
                 expect(payments).toBeDefined();
+                done();
             })
     });
     it('populates fields', () => {
@@ -20,6 +21,7 @@ describe('find and populate tests', () => {
             
             .then((payments) => {
                 expect(payments[0].card.client.fullname).toBeDefined();
+                done();
             })
     });
 
@@ -30,6 +32,7 @@ describe('find and populate tests', () => {
             .then((payments) => {
                 expect(payments[0].date.getFullYear())
                     .toBeGreaterThanOrEqual(payments[1].date.getFullYear());
+                done();
             })
     });
 
@@ -41,6 +44,7 @@ describe('find and populate tests', () => {
             
             .then((payments) => {
                 expect(payments.length).toBe(limit);
+                done();
             })
     });
 })
