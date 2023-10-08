@@ -1,4 +1,4 @@
-const { getPayments, getPaymentsCount } = require("../services/getPaymentsServices")
+const { getPayments, getPaymentsCount } = require("../services/getPayments.service")
 
 const getPaymentsController = async (req, res) => {
     // our pagination only shows 10 items per page
